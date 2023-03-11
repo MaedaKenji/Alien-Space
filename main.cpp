@@ -1,134 +1,7 @@
-#include <time.h>
+#include <iostream>
 #include <graphics.h>
-#include <windows.h>
-#include "mmsystem.h"
-
-class CPesawat {
-public:
-    float x,y,s=1;
-    float w;
-    float xp=0,yp=530;
-    float vx,vy,vp=5;
-    float xpeluru,ypeluru;
-    //Peluru
-    float xm,ym;
-    //float x,y;
-    int c=0;
-    int counter=-1;
-    float v=20;
-    float hx=0,hy=0,hw=70,hl=40;
-
-//Peluru
-void FDPeluru()
-{
-    if (counter==0)
-    {
-        xm=mousex();
-        ym=mousey();
-        if(ym<500) ym=500;
-        xpeluru=xm,ypeluru=ym;
-        hx=xm-5;
-        hy=ym-13;
-        hw=5;hl=5;
-
-
-        setcolor(YELLOW);
-        circle(xm,ym-13,5);
-
-        ym-=v;
-
-        counter=1;
-    }
-
-    if (counter==1)
-    {
-        hx=xpeluru-5;
-        hy=ypeluru-13;
-        hw=5;hl=5;
-
-        setcolor(YELLOW);
-        circle(xpeluru,ypeluru-13,5);
-
-        ypeluru-=v;
-        if(ypeluru<0) counter=-1;
-    }
-
-    if (counter == 2)
-    {
-        xpeluru=10000;
-        ypeluru=10000;
-        hx=xpeluru-5;
-        hy=ypeluru-5;
-    }
-
-}
-//Player
-void FDPlayer()
-{
-    xp=mousex();
-    hx= x-35;
-    hy= y-40;
-
-    setcolor(LIGHTCYAN);
-    line(xp,yp,xp-35*s,yp+35*s);
-    line(xp,yp,xp+35*s,yp+35*s);
-
-    line(xp-35*s,yp+35*s,xp-30*s,yp+40*s);
-    line(xp+35*s,yp+35*s,xp+30*s,yp+40*s);
-
-    line(xp-30*s,yp+40*s,xp-20*s,yp+30*s);
-    line(xp+30*s,yp+40*s,xp+20*s,yp+30*s);
-
-    line(xp-20*s,yp+30*s,xp-10*s,yp+40*s);
-    line(xp+20*s,yp+30*s,xp+10*s,yp+40*s);
-
-    line(xp-10*s,yp+40*s,xp,yp+30*s);
-    line(xp+10*s,yp+40*s,xp,yp+30*s);
-
-    //Pembatas permainan
-}
-
-void FDraw()
-{
-    hx= x-35;
-    hy= y-40;
-
-    setcolor(w);
-    line(x,y,x-35*s,y-35*s);
-    line(x,y,x+35*s,y-35*s);
-
-    line(x-35*s,y-35*s,x-30*s,y-40*s);
-    line(x+35*s,y-35*s,x+30*s,y-40*s);
-
-    line(x-30*s,y-40*s,x-20*s,y-30*s);
-    line(x+30*s,y-40*s,x+20*s,y-30*s);
-
-    line(x-20*s,y-30*s,x-10*s,y-40*s);
-    line(x+20*s,y-30*s,x+10*s,y-40*s);
-
-    line(x-10*s,y-40*s,x,y-30*s);
-    line(x+10*s,y-40*s,x,y-30*s);
-
-}
-
-void FGerak()
-{
-    if (y<0 || y>400) vy*=-1;
-    if (x<0 || x>765) vx*=-1;
-    y+=vy;
-    x+=vx;
-}
-
-void FDGaris()
-{
-    setcolor(getmaxcolor());
-    setfillstyle(SOLID_FILL,LIGHTBLUE);
-    rectangle(0,500,798,520);
-    floodfill(500,510,getmaxcolor());
-}
-};
-
-
+#include <time.h>
+#include "class.cpp"
 
 bool Fcollision(CPesawat p, CPesawat a)
 {
@@ -141,6 +14,66 @@ bool Fcollision(CPesawat p, CPesawat a)
     else return 0;
 }
 
+bool FCPlayer(CPesawat p, CPesawat a)
+{
+    if (
+        p.hx < a.hxp+a.hwp &&
+        p.hx + p.hw > a.hxp &&
+        p.hy < a.hyp+a.hlp &&
+        p.hy + p.hl > a.hyp
+        ) return 1;
+    else return 0;
+}
+
+void FLoading()
+{
+    readimagefile("Loading2.jpg",0,0,800,600);
+    rectangle(328,555,475,565);
+    for (int i=0;i<140;i++)
+    {
+        rectangle(328+i,555,335+i,565);
+        delay(1);
+    }
+}
+
+void FGOver()
+{
+    readimagefile("GOver.jpg",0,0,800,600);
+    for (int i=0;i<140;i++)
+    {
+        delay(1);
+    }
+    //delay(100);
+    //outtextxy(100,100,"GAME");
+}
+
+void FDMoon()
+{
+    float s=10;
+    float l,t;
+    float rnd[10]={72,49,123,234,438,283,345,13,85,32};
+    float rnd1[10]={532,439,123,234,438,283,345,13,85,232};
+
+    setcolor(getmaxcolor());
+    setfillstyle(SOLID_FILL,LIGHTBLUE);
+    for (int i=0;i<10;i++)
+    {
+        arc(30+rnd[i],rnd1[i],67,294,s);
+        arc(35+rnd[i],rnd1[i],113,246,s);
+    }
+
+
+
+    //floodfill(13,250,WHITE);
+
+}
+
+int main2()
+{
+    initwindow(800,600,"AlienSpace");
+    FGOver();
+}
+
 int main()
 {
     initwindow(800,600,"Alien Space");
@@ -148,36 +81,52 @@ int main()
     CPesawat a[10];
     CPesawat p;
     CPesawat peluru[10];
+    int gerak[10];
+    int cscore=0;
+    int score=0;
+    bool CGO=0;
     int counter=0;
     int page =0;
     int ccolision=0;
     p.c=1;
     int music=0;
+    char str[3];
 
-    for (int i=0;i<10;i++)
-    {
-    a[i].x=rand()%750;
-    a[i].y=rand()%400;
-    a[i].vx=rand()%10+5;
-    a[i].vy=rand()%10+5;
-    a[i].w=rand()%16;
-    //Permisi peluru ngikut loop :)
-    peluru[i].counter=-1;
-    }
 
-    rectangle(0, 0, getmaxx(), getmaxy());
-
-    while(!kbhit())
+        for (int i=0;i<10;i++)
+            {
+            a[i].x=rand()%750+1;
+            a[i].y=0;
+            gerak[i]=rand()%25+5;
+            a[i].vx=gerak[i];
+            if (i%2==0) a[i].vx*=-1;
+            a[i].vy=rand()%25+5;
+            a[i].w=LIGHTBLUE;
+            a[i].xc=0;
+            a[i].v=gerak[i];
+            //Permisi peluru ngikut loop :)
+            peluru[i].counter=10;
+            peluru[i].v=25;
+            }
+    FLoading();
+    while(CGO==0)
     {
         setactivepage(page);
         setvisualpage(1-page);
         cleardevice();
+        setbkcolor(BLACK);
+        //readimagefile("bg.jpg",0,0,800,600);
+        sprintf(str,"%d",score);
+        outtextxy(20,580,"Score: ");
+        outtextxy(67,580,str);
         p.FDPlayer();
-        p.FDGaris();
+        //FDMoon();
+        //p.FDGaris();
         for (int i=0;i<10;i++)
         {
             a[i].FGerak();
             a[i].FDraw();
+            a[i].FDPEnemy();
         }
         if (ismouseclick(WM_LBUTTONDOWN))
         {
@@ -199,31 +148,56 @@ int main()
                 {
                     if(Fcollision(peluru[i],a[j]))
                     {
-                        peluru[i].counter=2;
-                        a[j].x=-1000;
                         a[j].y=-1000;
-                        outtextxy(100,530,"Kena");
-                        ccolision++;
+                        a[j].x=-2000;
+                        a[j].hy=-1000;
+                        a[j].hx=-2000;
+                        peluru[i].counter=10;
+                        score++;
+                        cscore++;
+                    }
 
-                        if (ccolision>15)
-                        {
-
-                            delay(1000);
-                            ccolision=0;
-                        }
+                    if(FCPlayer(p,a[j]))
+                    {
+                        CGO =1;
                     }
                 }
             }
 
         if(counter>10)counter=0;
+        if (cscore%10==0 && cscore!=0)
+            {
+                for (int i=0;i<10;i++)
+                {
+                a[i].x=rand()%750+1;
+                a[i].y=0;
+                gerak[i]=rand()%25+5;
+                a[i].vx=gerak[i];
+                if (i%2==0) a[i].vx*=-1;
+                a[i].vy=rand()%25+5;
+                a[i].w=LIGHTBLUE;
+                a[i].xc=0;
+                a[i].v=gerak[i];
+                cscore=0;
+                //Permisi peluru ngikut loop :)
+                }
+            }
         for(int i=0;i<10;i++)
         {
             peluru[i].FDPeluru();
+        }
+        if (CGO==1)
+        {
+            cleardevice();
         }
 
         page=1-page;
         delay(20);
     }
+    cleardevice();
+    main2();
     //End While loop
-    return 0;
 }
+
+
+
