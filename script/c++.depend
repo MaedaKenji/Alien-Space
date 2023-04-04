@@ -1,0 +1,27 @@
+# depslib dependency file v1.0
+1680612714 source:e:\coding\c++\main.cpp
+	<iostream>
+	<graphics.h>
+	"graphics.h"
+	<time.h>
+	"cls.cpp"
+	"story.h"
+	<windows.h>
+	"mmsystem.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+
+1680441833 source:e:\coding\c++\cls.cpp
+	<graphics.h>
+	<stdio.h>
+
+1680441833 e:\coding\c++\cls.cpp
+	<graphics.h>
+	<stdio.h>
+
+1679237817 e:\coding\c++\story.h
+	<graphics.h>
+
+1680413803 source:e:\coding\c++\recourses.rc
+

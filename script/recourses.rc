@@ -1,0 +1,4 @@
+#ifndef _recourse_rc
+#define _recourse_rc
+MAINICON ICON "src/icon/alieninfestation.ico"
+#endif // _recourses_rc
