@@ -1,5 +1,5 @@
 # Alien-Space
-2D Game with C++ Graphics
+2D Game with C++ graphics.h library
 The main code is inside cls.cpp,main.cpp, and story.h
 The other files, is from previous version
 
